@@ -1,9 +1,8 @@
 cbuffer constants : register(b0)
 {
     float3 Offset;
-    float Pad;
     float Radius;
-    float3 Color; // Ãß°¡µÈ ÄÃ·¯ °ª
+    //float3 Color; // ï¿½ß°ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ ï¿½ï¿½
 }
 
 struct VS_INPUT
@@ -22,14 +21,18 @@ PS_INPUT mainVS(VS_INPUT input)
 {
     PS_INPUT output;
     
-    output.position = float4(input.position.xyz * Radius, 1.0) + float4(Offset, 0.0);
+    input.position.xy *= Radius;
+    //output.position = float4(input.position.xyz * Radius, 1.0) + float4(Offset, 0.0);
     
-    // »ö»ó º¯°æ ¿©ºÎ Ã¼Å©
+    output.position = float4(Offset, 0) + input.position;
+    output.color = input.color;
+    /*
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¼Å©
     if (Color.x >= 0.0f)
-        output.color = float4(Color, 1.0); // ¼³Á¤µÈ »ö»ó Àû¿ë
+        output.color = float4(Color, 1.0); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     else
-        output.color = input.color; // ±âÁ¸ ¹«Áö°³»ö À¯Áö
-
+        output.color = input.color; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+*/
     return output;
 }
 

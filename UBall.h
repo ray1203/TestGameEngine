@@ -1,9 +1,13 @@
-﻿// © 2024 KRAFTON, Inc. ALL RIGHTS RESERVED.
-
 #pragma once
+#include "Vector.h"
+#include <d3d11.h>
 #include "common.h"
-
-
+#include "FUnrealAliases.h"
+#include "Matrix.h"
+class URenderer;
+class UCamera;
+class UBall
+{
 
 #pragma region Sphere Vertices
 	FVertexSimple sphere_vertices[2400] = {
@@ -2408,4 +2412,45 @@
 	{ -0.000000f, -1.000000f, -0.000000f, 0.500000f, 0.000000f, 0.500000f, 1.000000f },
 	{ 0.156434f, -0.987688f, 0.000000f, 0.578217f, 0.006156f, 0.500000f, 1.000000f },
 	};
-#pragma endregion
+#pragma endregion 
+
+public:
+	int numVertices;
+	FVector Velocity;
+	FVector Translation;
+	FVector Rotation;
+	FVector Scale;
+	static UCamera* Camera;
+	FString VertexShaderName = "BallVertexShader.hlsl";
+	FString PixelShaderName = "BallPixelShader.hlsl";
+	ID3D11VertexShader* VertexShader = nullptr;
+	ID3D11PixelShader* PixelShader = nullptr;
+	struct VertexConstantData {
+		FMatrix MVP;
+	}VertexConstantData;
+
+	struct PixelConstantData {
+	}PixelConstantData;
+	ID3D11Buffer* VertexBuffer = nullptr;
+	ID3D11Buffer* VertexCBuffer;
+	ID3D11Buffer* PixelCBuffer;
+	// 이후 추가할 변수와 함수 이름은 자유롭게 정하세요.
+
+	// 예:1
+	//float Index;
+
+	// 예:2
+	//int NumHits;
+	UBall();
+	void Initialize(URenderer& renderer);
+	//void CreateShader();
+	// 예:3
+	void Render(URenderer& renderer);
+	void CheckBorder();
+	// 예:5
+	void Move();
+	void ApplyGravity();
+	// 예:6
+	void Update(URenderer& renderer);
+	void MVP();
+};
