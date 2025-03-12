@@ -14,7 +14,7 @@ UBall::UBall():Translation(),Scale(0.5f,0.5f,0.5f),Rotation() {
 	////Velocity = FVector(((rand() % 100 - 50) / 1000.0f), ((rand() % 100 - 50) / 1000.0f), 0.0f);
 	//Location = FVector(0, 0, 0);
 	//Velocity = FVector(0, 0, 0);
-	numVertices = sizeof(sphere_vertices)/sizeof(FVertexSimple);
+	numVertices = sizeof(sphere_vertices) / sizeof(FVertexSimple);
 	std::cout << numVertices;
 	 
 }

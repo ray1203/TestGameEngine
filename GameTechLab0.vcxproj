@@ -138,11 +138,12 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Matrix.cpp" />
-    <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="UBall.cpp" />
     <ClCompile Include="UCamera.cpp" />
     <ClCompile Include="UIManager.cpp" />
+    <ClCompile Include="UObject.cpp" />
     <ClCompile Include="URenderer.cpp" />
+    <ClCompile Include="Vertices.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="BallPixelShader.hlsl">
@@ -168,13 +169,14 @@
     <ClInclude Include="ImGui\imstb_textedit.h" />
     <ClInclude Include="ImGui\imstb_truetype.h" />
     <ClInclude Include="Matrix.h" />
-    <ClInclude Include="Sphere.h" />
     <ClInclude Include="UBall.h" />
     <ClInclude Include="UCamera.h" />
     <ClInclude Include="UIManager.h" />
+    <ClInclude Include="UObject.h" />
     <ClInclude Include="URenderer.h" />
     <ClInclude Include="Vector.h" />
     <ClInclude Include="Vector4.h" />
+    <ClInclude Include="Vertices.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
