@@ -6,37 +6,37 @@ struct FVector4
 public:
     float X, Y, Z, W;
 
-    /** ±âº» »ý¼ºÀÚ */
+    /** ï¿½âº» ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
     FVector4(float _x = 0.0f, float _y = 0.0f, float _z = 0.0f, float _w = 1.0f)
         : X(_x), Y(_y), Z(_z), W(_w) {
     }
 
-    /** FVector¸¦ ±â¹ÝÀ¸·Î FVector4 »ý¼º (W ±âº»°ª 1) */
+    /** FVectorï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ FVector4 ï¿½ï¿½ï¿½ï¿½ (W ï¿½âº»ï¿½ï¿½ 1) */
     FVector4(const FVector& vec, float _w = 1.0f)
         : X(vec.X), Y(vec.Y), Z(vec.Z), W(_w) {
     }
 
-    /** º¤ÅÍ µ¡¼À */
+    /** ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ */
     FVector4 operator+(const FVector4& other) const noexcept {
         return { X + other.X, Y + other.Y, Z + other.Z, W + other.W };
     }
 
-    /** º¤ÅÍ »¬¼À */
+    /** ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ */
     FVector4 operator-(const FVector4& other) const noexcept {
         return { X - other.X, Y - other.Y, Z - other.Z, W - other.W };
     }
 
-    /** ½ºÄ®¶ó °ö */
+    /** ï¿½ï¿½Ä®ï¿½ï¿½ ï¿½ï¿½ */
     FVector4 operator*(float scale) const noexcept {
         return { X * scale, Y * scale, Z * scale, W * scale };
     }
 
-    /** ½ºÄ®¶ó ³ª´°¼À */
+    /** ï¿½ï¿½Ä®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
     FVector4 operator/(float scale) const noexcept {
         assert(scale != 0);
         return { X / scale, Y / scale, Z / scale, W / scale };
     }
-    /** º¤ÅÍ ³ª´°¼À ¹× ÀÚ±â ÀÚ½Å °»½Å */
+    /** ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ú±ï¿½ ï¿½Ú½ï¿½ ï¿½ï¿½ï¿½ï¿½ */
     FVector4& operator/=(const FVector4& other) noexcept {
         X /= other.X;
         Y /= other.Y;
@@ -44,17 +44,17 @@ public:
         W /= other.W;
         return *this;
     }
-    /** º¤ÅÍ ³»Àû (Dot Product, 4D) */
+    /** ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (Dot Product, 4D) */
     float Dot(const FVector4& other) const noexcept {
         return X * other.X + Y * other.Y + Z * other.Z + W * other.W;
     }
 
-    /** 3D ³»Àû (W Á¦¿Ü) */
+    /** 3D ï¿½ï¿½ï¿½ï¿½ (W ï¿½ï¿½ï¿½ï¿½) */
     float Dot3(const FVector4& other) const noexcept {
         return X * other.X + Y * other.Y + Z * other.Z;
     }
 
-    /** º¤ÅÍ Á¤±ÔÈ­ (W Á¦¿Ü) */
+    /** ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½È­ (W ï¿½ï¿½ï¿½ï¿½) */
     void Normalize() {
         float len = Length3();
         if (len > 1e-6f) {
@@ -65,23 +65,23 @@ public:
         }
     }
 
-    /** º¤ÅÍ Å©±â ¹ÝÈ¯ (4D) */
+    /** ï¿½ï¿½ï¿½ï¿½ Å©ï¿½ï¿½ ï¿½ï¿½È¯ (4D) */
     float Length() const {
         return sqrt(X * X + Y * Y + Z * Z + W * W);
     }
 
-    /** º¤ÅÍ Å©±â ¹ÝÈ¯ (3D, W Á¦¿Ü) */
+    /** ï¿½ï¿½ï¿½ï¿½ Å©ï¿½ï¿½ ï¿½ï¿½È¯ (3D, W ï¿½ï¿½ï¿½ï¿½) */
     float Length3() const {
         return sqrt(X * X + Y * Y + Z * Z);
     }
 
-    /** º¤ÅÍ Å©±â Á¦°ö ¹ÝÈ¯ */
+    /** ï¿½ï¿½ï¿½ï¿½ Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ */
     float LengthSquared() const {
         return X * X + Y * Y + Z * Z + W * W;
     }
 
 
-    /** FVector4¿¡¼­ FVector·Î º¯È¯ÇÏ´Â ÇÔ¼ö */
+    /** FVector4ï¿½ï¿½ï¿½ï¿½ FVectorï¿½ï¿½ ï¿½ï¿½È¯ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½ */
     FVector ToFVector() const
     {
         if (W != 0.0f)
@@ -91,7 +91,7 @@ public:
         return FVector(X, Y, Z);
     }
 
-    /** º¤ÅÍ °ªÀ» ¼³Á¤ */
+    /** ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ */
     void Set(float x, float y, float z, float w = 1.0f) {
         X = x;
         Y = y;
@@ -99,9 +99,9 @@ public:
         W = w;
     }
 
-    /** 3D º¤ÅÍ¿Í µ¿ÀÏÇÑ ¹æÇâÀ¸·Î º¯È¯ (W À¯Áö) */
+    /** 3D ï¿½ï¿½ï¿½Í¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ (W ï¿½ï¿½ï¿½ï¿½) */
     FVector4 TransformVector(const class FMatrix& matrix) const;
 
-    /** À§Ä¡ º¯È¯ (W°¡ 1ÀÏ ¶§) */
+    /** ï¿½ï¿½Ä¡ ï¿½ï¿½È¯ (Wï¿½ï¿½ 1ï¿½ï¿½ ï¿½ï¿½) */
     FVector4 TransformPosition(const class FMatrix& matrix) const;
 };

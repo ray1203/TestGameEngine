@@ -1,11 +1,11 @@
 #include "UBall.h"
-#include "Urenderer.h"
-#include "common.h"
+#include "Core/Renderer/URenderer.h"
+#include "Core/common.h"
 #include <iostream>
 #include <cassert>
-#include "Matrix.h"
-#include "UCamera.h"
-#include "FMath.h"
+#include "Core/Math/Matrix.h"
+#include "Core/UCamera.h"
+#include "Core/Math/FMath.h"
 UCamera* UBall::Camera = nullptr;
 UBall::UBall():Translation(),Scale(0.5f,0.5f,0.5f),Rotation() {
 	//Radius = ((rand() % 50) + 10) / 40.0f / 10.0f; // (0.25 ~ 1.5)/10

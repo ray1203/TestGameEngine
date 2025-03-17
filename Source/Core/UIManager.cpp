@@ -1,10 +1,11 @@
 #include "UIManager.h"
-#include "ImGui/imgui.h"
-#include "ImGui/imgui_internal.h"
-#include "ImGui/imgui_impl_dx11.h"
-#include "ImGui/imgui_impl_win32.h"
+#include "Source/ThirdParty/ImGui/imgui.h"
+#include "Source/ThirdParty/ImGui/imgui_internal.h"
+#include "Source/ThirdParty/ImGui/imgui_impl_dx11.h"
+#include "Source/ThirdParty/ImGui/imgui_impl_win32.h"
 #include "UCamera.h"
-#include "UBall.h"
+#include "UCamera.h"
+#include "Scene/UBall.h"
 URenderer* UIManager::Renderer = nullptr;
 UCamera* UIManager::Camera = nullptr;
 UBall* UIManager::CurrentObject = nullptr;

@@ -1,10 +1,8 @@
 #pragma once
-#include "Vector.h"
 #include <d3d11.h>
-#include "common.h"
-#include "FUnrealAliases.h"
-#include "Matrix.h"
 #include "Vertices.h"
+#include "FUnrealAliases.h"
+#include "Math/Matrix.h"
 class URenderer;
 class UCamera;
 class UBall

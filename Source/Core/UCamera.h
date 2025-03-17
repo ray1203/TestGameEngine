@@ -1,6 +1,6 @@
 #pragma once
-#include "Vector.h"
-#include "Matrix.h"
+#include "Math/Matrix.h"
+#include "Math/Vector.h"
 class UCamera
 {
 public:

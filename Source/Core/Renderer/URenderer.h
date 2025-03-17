@@ -3,9 +3,11 @@
 
 #include <d3d11.h>
 #include <d3dcompiler.h>
-#include "Vector.h"
+//#include "Core/Math/Vector.h"
 #include "common.h"
 #include "FUnrealAliases.h"
+#include "Math/Vector.h"
+
 class URenderer
 {
 public:
