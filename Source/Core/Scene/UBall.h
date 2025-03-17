@@ -16,8 +16,8 @@ public:
 	FVector Rotation;
 	FVector Scale;
 	static UCamera* Camera;
-	FString VertexShaderName = "BallVertexShader.hlsl";
-	FString PixelShaderName = "BallPixelShader.hlsl";
+	FString VertexShaderName = "Shader/BallVertexShader.hlsl";
+	FString PixelShaderName = "Shader/BallPixelShader.hlsl";
 	ID3D11VertexShader* VertexShader = nullptr;
 	ID3D11PixelShader* PixelShader = nullptr;
 	struct VertexConstantData {

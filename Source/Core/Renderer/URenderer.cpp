@@ -123,9 +123,9 @@ void URenderer::CreateShader()
     ID3DBlob* vertexShaderCSO;
     ID3DBlob* pixelShaderCSO;
 
-    D3DCompileFromFile(L"ShaderW0.hlsl", nullptr, nullptr, "mainVS", "vs_5_0", 0, 0, &vertexShaderCSO, nullptr);					// ������ ���� : ������ ���н� Blob ��ü ���ڿ��� ���� �޽��� ����
+    D3DCompileFromFile(L"Shader/ShaderW0.hlsl", nullptr, nullptr, "mainVS", "vs_5_0", 0, 0, &vertexShaderCSO, nullptr);					// ������ ���� : ������ ���н� Blob ��ü ���ڿ��� ���� �޽��� ����
     Device->CreateVertexShader(vertexShaderCSO->GetBufferPointer(), vertexShaderCSO->GetBufferSize(), nullptr, &SimpleVertexShader);
-    D3DCompileFromFile(L"ShaderW0.hlsl", nullptr, nullptr, "mainPS", "ps_5_0", 0, 0, &pixelShaderCSO, nullptr);
+    D3DCompileFromFile(L"Shader/ShaderW0.hlsl", nullptr, nullptr, "mainPS", "ps_5_0", 0, 0, &pixelShaderCSO, nullptr);
     Device->CreatePixelShader(pixelShaderCSO->GetBufferPointer(), pixelShaderCSO->GetBufferSize(), nullptr, &SimplePixelShader);
 
     D3D11_INPUT_ELEMENT_DESC layout[] = {
