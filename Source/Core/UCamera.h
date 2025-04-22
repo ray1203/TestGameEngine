@@ -3,7 +3,13 @@
 #include "Math/Vector.h"
 class UCamera
 {
+private:
+    static UCamera Instance;
+
+    UCamera();  // 생성자 private 처리하여 외부에서 객체 생성 방지
 public:
+    static UCamera& GetInstance() { return Instance; }
+
     FVector CameraPosition{0.0f,0.0f,-1.0f};
     FVector CameraDir{ 0.0f, 0.0f, 1.0f };
     FVector CameraUp{ 0.0f, 1.0f, 0.0f };

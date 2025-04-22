@@ -10,9 +10,8 @@ class UIManager {
 public:
     static UIManager& GetInstance();
     static URenderer* Renderer;
-    static UCamera* Camera;
     static UBall* CurrentObject;
-    static void Initialize(URenderer& renderer, UCamera& camera);
+    static void Initialize(URenderer& renderer);
     static void Render(HWND hWnd);
 
 

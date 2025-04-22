@@ -82,14 +82,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	renderer.CreateShader();
 	//renderer.CreateConstantBuffer();
 	// 
-	UCamera Camera;
 	// 여기에서 ImGui를 생성합니다.
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO();
 	ImGui_ImplWin32_Init((void*)hWnd);
 	ImGui_ImplDX11_Init(renderer.Device, renderer.DeviceContext);
-	UIManager::Initialize(renderer, Camera);
+	UIManager::Initialize(renderer);
 	// 여기에 추가합니다.
 
 	// FPS 제한을 위한 설정
@@ -105,7 +104,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	UBall uBall;
 	uBall.Initialize(renderer);
-	uBall.Camera = &Camera;
 	UIManager::CurrentObject = &uBall;
 	// Main Loop (Quit Message가 들어오기 전까지 아래 Loop를 무한히 실행하게 됨)
 	while (bIsExit == false)

@@ -3,111 +3,56 @@
 #include "Core/common.h"
 #include <iostream>
 #include <cassert>
-#include "Core/Math/Matrix.h"
-#include "Core/UCamera.h"
-#include "Core/Math/FMath.h"
-UCamera* UBall::Camera = nullptr;
-UBall::UBall():Translation(),Scale(0.5f,0.5f,0.5f),Rotation() {
-	//Radius = ((rand() % 50) + 10) / 40.0f / 10.0f; // (0.25 ~ 1.5)/10
-	//Mass = Radius * 2.0f;
-	////Location = FVector(((rand() % 100) / 50.0f) - 1.0f, (rand() % 100) / 100.0f, 0.0f);
-	////Velocity = FVector(((rand() % 100 - 50) / 1000.0f), ((rand() % 100 - 50) / 1000.0f), 0.0f);
-	//Location = FVector(0, 0, 0);
-	//Velocity = FVector(0, 0, 0);
-	numVertices = sizeof(sphere_vertices) / sizeof(FVertexSimple);
-	std::cout << numVertices;
-	 
-}
-void UBall::Initialize(URenderer& renderer) {
-	VertexBuffer = renderer.CreateVertexBuffer(sphere_vertices, sizeof(sphere_vertices));
-	renderer.CreateShaderInputLayout(VertexShaderName, PixelShaderName, VertexShader, PixelShader);
 
-	//renderer.CreateShader("ShaderW0.hlsl", "ShaderW0.hlsl", VertexShader,PixelShader);
-	if (!VertexBuffer) std::cout << "VertexBuffer is nullptr!" << std::endl;
+#include "Vertices.h"
 
-	//renderer.CreateConstantBuffer();
-	renderer.CreateConstantBuffer(VertexConstantData, VertexCBuffer);
-	assert(VertexCBuffer != nullptr);
-	renderer.CreateConstantBuffer(PixelConstantData, PixelCBuffer);
-	assert(PixelCBuffer != nullptr);
-	//renderer.CreateShaderInputLayout("ShaderW0.hlsl", "ShaderW0.hlsl", VertexShader, PixelShader);
-}
 
-// 예:3
-void UBall::Render(URenderer& renderer)
+
+UBall::UBall()
+    : Velocity(FVector(0, 0, 0))
 {
-	renderer.DeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	renderer.DeviceContext->VSSetShader(VertexShader, nullptr, 0);
-	renderer.DeviceContext->PSSetShader(PixelShader, nullptr, 0);
+    Translation = FVector(0, 0, 0);
+    Scale = FVector(0.5f, 0.5f, 0.5f);
+    Rotation = FVector(0, 0, 0);
 
-	renderer.DeviceContext->IASetInputLayout(renderer.SimpleInputLayout);
-	renderer.DeviceContext->VSSetConstantBuffers(0, 1, &VertexCBuffer);
-	renderer.DeviceContext->PSSetConstantBuffers(0, 1, &PixelCBuffer);
-	if (!VertexBuffer) std::cout << "VertexBuffer is nullptr!" << std::endl;
-	if (numVertices == 0) std::cout << "numVertices is 0!" << std::endl;
-	renderer.RenderPrimitive(VertexBuffer, numVertices);
+    numVertices = sizeof(sphere_vertices) / sizeof(FVertexSimple);
+}
+void UBall::Initialize(URenderer& renderer)
+{
+    // 부모 클래스(UObject)의 기본적인 초기화 수행
+    UObject::Initialize(renderer);
 
+    // 추가적으로 공(Ball)만의 초기화 작업 수행
+    Velocity = FVector(0.1f, 0.1f, 0.0f); // 기본 속도 설정
+
+    // 공의 정점 데이터 로드
+    VertexBuffer = renderer.CreateVertexBuffer(sphere_vertices, sizeof(sphere_vertices));
+    numVertices = sizeof(sphere_vertices) / sizeof(FVertexSimple);
+
+    if (!VertexBuffer) 
+        std::cout << "VertexBuffer is nullptr!" << std::endl;
+
+    std::cout << "UBall Initialized with " << numVertices << " vertices." << std::endl;
 }
-void UBall::CheckBorder() {
-	//float renderRadius = Radius;
-	//if (Location.X < leftBorder + renderRadius)
-	//{			 
-	//	Location.X = leftBorder + renderRadius;
-	//	//Velocity.X *= -bounciness;
-	//}
-	//if (Location.X > rightBorder - renderRadius)
-	//{
-	//	Location.X = rightBorder - renderRadius;
-	//	//Velocity.X *= -bounciness;
-	//}
-	//if (Location.Y < topBorder + renderRadius)
-	//{			 
-	//	Location.Y = topBorder + renderRadius;
-	//	//Velocity.Y *= -bounciness;
-	//}			 
-	//if (Location.Y > bottomBorder - renderRadius)
-	//{			 
-	//	Location.Y = bottomBorder - renderRadius;
-	//	//Velocity.Y *= -bounciness;
-	//}
+
+
+
+void UBall::CheckBorder()
+{
+    // 경계 체크 (충돌 처리 가능)
 }
-// 예:5
+
 void UBall::Move()
 {
-	ApplyGravity();
-	Translation.X += Velocity.X;
-	Translation.Y += Velocity.Y;
-	CheckBorder();
+    ApplyGravity();
+    Translation.X += Velocity.X;
+    Translation.Y += Velocity.Y;
+    CheckBorder();
 }
-void UBall::ApplyGravity() {
-	/*
-	if (bEnableGravity) {
-		Velocity += FVector(0.0f, gravityStrength, 0.0f);
-	}*/
-}
-void UBall::MVP() {
-	FMatrix S = FMatrix::ApplyScale(Scale);
-	FMatrix R = FMatrix::ApplyRotationX(Rotation.X) *
-		FMatrix::ApplyRotationX(Rotation.Y) *
-		FMatrix::ApplyRotationX(Rotation.Z);
-	FMatrix T = FMatrix::ApplyTranslation(Translation);
-	FMatrix M = S * R * T;
-	FMatrix V = FMatrix::LookFromMatrix(Camera->CameraPosition, Camera->CameraDir, Camera->CameraUp);
-	FMatrix P;
-	if (Camera->bIsOrthogonal)
-		P = FMatrix::ApplyOrthographic(-1, 1, -1, 1, Camera->NearPlane, Camera->FarPlane);
-	else
-		P = FMatrix::ApplyPerspective(ConvertToRadians(Camera->FOV), Camera->AspectRatio, Camera->NearPlane, Camera->FarPlane);
-	VertexConstantData.MVP = M*V*P;
-}
-void UBall::Update(URenderer& renderer)
+
+void UBall::ApplyGravity()
 {
-	Move();
-	MVP();
-	renderer.UpdateConstant(VertexConstantData, VertexCBuffer);
-	renderer.UpdateConstant(PixelConstantData, PixelCBuffer);
-	
-	if (!VertexCBuffer) std::cout << "VertexCBuffer is nullptr!" << std::endl;
-	if (!PixelCBuffer) std::cout << "PixelCBuffer is nullptr!" << std::endl;
-	
+    // 중력 적용 (필요 시 추가)
 }
+
+

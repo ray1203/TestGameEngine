@@ -7,7 +7,6 @@
 #include "UCamera.h"
 #include "Scene/UBall.h"
 URenderer* UIManager::Renderer = nullptr;
-UCamera* UIManager::Camera = nullptr;
 UBall* UIManager::CurrentObject = nullptr;
 
 
@@ -17,11 +16,10 @@ UIManager& UIManager::GetInstance() {
 	return instance;
 }
 
-void UIManager::Initialize(URenderer& renderer,UCamera& camera) {
+void UIManager::Initialize(URenderer& renderer) {
 	ImGui::CreateContext();
 	ImGui::StyleColorsDark();
 	Renderer = &renderer;
-	Camera = &camera;
 }
 
 void UIManager::Render(HWND hWnd) {
@@ -36,16 +34,17 @@ void UIManager::Render(HWND hWnd) {
 void UIManager::ShowExampleControlPanel() {
 	ImGui::SetNextWindowPos(ImVec2(10, 10), ImGuiCond_FirstUseEver);
 	//ImGui::SetNextWindowSize(ImVec2(300, 200), ImGuiCond_FirstUseEver); 
+	UCamera& Camera = UCamera::GetInstance();
 
 	ImGui::Begin("Jungle Control Panel", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
 	ImGui::Text("FPS: %.2f", ImGui::GetIO().Framerate);
 
 	
-	ImGui::Checkbox("Orthogonal", &Camera->bIsOrthogonal);
-	ImGui::SliderFloat("Fov", &Camera->FOV, 5.f, 120.f);
-	ImGui::SliderFloat3("Camera Location", &Camera->CameraPosition.X, -2.0f,
+	ImGui::Checkbox("Orthogonal", &Camera.bIsOrthogonal);
+	ImGui::SliderFloat("Fov", &Camera.FOV, 5.f, 120.f);
+	ImGui::SliderFloat3("Camera Location", &Camera.CameraPosition.X, -2.0f,
 		2.0f);
-	ImGui::SliderFloat3("Camera Rotation", &Camera->CameraDir.X, -1.0f,
+	ImGui::SliderFloat3("Camera Rotation", &Camera.CameraDir.X, -1.0f,
 		1.0f);
 
 	ImGui::Separator();
